@@ -1,29 +1,24 @@
-
 #include <iostream>
-#include "math_test.h"
-#include "class_test.h"
+#include <string>
+#include <vector>
+#include <stack>
+using namespace std;
+
+#include <d3d11.h>
+#include <memory>
+std::shared_ptr<ID3D11Device> device;
 
 
-void main()
+std::weak_ptr<ID3D11Device> GetDevice()
 {
-	using namespace std;
-	math_test::fibonacci_init(1,1);
-	{
-		const int max = 9;
-		for (int i = 0; i < max; i++)
-		{
-			math_test::fibonacci_next();
-			cout << math_test::fibonacci_current() << endl;
-		}
-	}
+    return device;
+}
+
+int main(void)
+{
+    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 
-	math_test::test<int> _Test;
 
-	_Test.a = 10;
-
-	cout << _Test.add(100,100) << endl;
-
-	std::system("pause");
-	return;
+    return 0;
 }

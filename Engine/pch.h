@@ -9,5 +9,9 @@
 
 // プリコンパイルするヘッダーをここに追加します
 #include "framework.h"
+#include "safe_release.h"
+
+
+
 
 #endif //PCH_H
