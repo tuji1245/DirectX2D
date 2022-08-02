@@ -105,14 +105,17 @@ namespace Engine2D
 
 		return S_OK;
 	}
-	D3D11::D3D11(HWND hwnd, UINT width, UINT height, bool fullscreen)
+	D3D11::D3D11()
 	{
-		lastError = E_FAIL;
-		lastError = Create(hwnd, width, height, fullscreen);
 	}
 	D3D11::~D3D11()
 	{
 		Release();
+	}
+	void D3D11::Init(HWND hwnd, UINT width, UINT height, bool fullscreen)
+	{
+		lastError = E_FAIL;
+		lastError = Create(hwnd, width, height, fullscreen);
 	}
 	void D3D11::SetCulling(Engine2D::CullingMode mode)
 	{
@@ -132,18 +135,18 @@ namespace Engine2D
 	}
 	inline std::weak_ptr<ID3D11Device> D3D11::GetDevice()
 	{
-		return std::weak_ptr<ID3D11Device>();// device;
+		return device;
 	}
 	inline std::weak_ptr<ID3D11DeviceContext> D3D11::GetContext()
 	{
-		return std::weak_ptr<ID3D11DeviceContext>();// context;
+		return context;
 	}
 	inline std::weak_ptr<IDXGISwapChain> D3D11::GetSwapChain()
 	{
-		return std::weak_ptr<IDXGISwapChain>();// swapChain;
+		return swapChain;
 	}
 	inline std::weak_ptr<ID3D11RenderTargetView> D3D11::GetRenderTargetView()
 	{
-		return std::weak_ptr<ID3D11RenderTargetView>();// renderTargetView;
+		return renderTargetView;
 	}
 }

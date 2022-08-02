@@ -1,6 +1,8 @@
 #pragma once
 #include <d3d11.h>
 #include <memory>
+#include "singleton.hpp"
+
 namespace Engine2D
 {
 	enum class CullingMode
@@ -10,14 +12,15 @@ namespace Engine2D
 		BACK,
 		MAX
 	};
-	class D3D11
+	class D3D11 final : public Singleton<D3D11>
 	{
 	private:
 		HRESULT Create(HWND hwnd, UINT width, UINT height, bool fullscreen);
 	
 	public:
-		D3D11(HWND hwnd, UINT width, UINT height, bool fullscreen);
+		D3D11();
 		virtual ~D3D11();
+		void Init(HWND hwnd, UINT width, UINT height, bool fullscreen);
 		void SetCulling(CullingMode mode);
 		void Release();
 		void BeginFrame() {};

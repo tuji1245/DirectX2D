@@ -179,15 +179,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Engine.hpp" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Graphic\DX11.hpp" />
+    <ClInclude Include="Graphic\Texture.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="safe_release.h" />
+    <ClInclude Include="singleton.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphic\DX11.cpp" />
+    <ClCompile Include="Graphic\Texture.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
