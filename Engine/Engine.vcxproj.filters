@@ -36,6 +36,9 @@
     <ClInclude Include="singleton.hpp">
       <Filter>Library</Filter>
     </ClInclude>
+    <ClInclude Include="delegate.hpp">
+      <Filter>Library</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
