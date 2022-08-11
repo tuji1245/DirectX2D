@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include "safe_release.h"
 
 namespace Engine2D
 {
@@ -15,7 +14,7 @@ namespace Engine2D
 		virtual void Uninit() {};
 
 	public:
-		inline static std::weak_ptr<T> GetInstance()
+		inline static std::shared_ptr<T> GetInstance()
 		{
 			return instance;
 		}
@@ -28,7 +27,7 @@ namespace Engine2D
 		}
 		static void DestoryInstance()
 		{
-			safe_release(instance);
+			ExplicitRelease(instance);
 		}
 
 	private:

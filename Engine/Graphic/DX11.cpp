@@ -2,11 +2,10 @@
 
 #include "DX11.hpp"
 #include <memory>
-#include "safe_release.h"
 
 namespace Engine2D
 {
-	HRESULT D3D11::Create(HWND hwnd, UINT width, UINT height, bool fullscreen)
+	HRESULT DX11::Create(HWND hwnd, UINT width, UINT height, bool fullscreen)
 	{
 		HRESULT	_hr = E_FAIL;
 
@@ -54,9 +53,6 @@ namespace Engine2D
 
 		D3D_DRIVER_TYPE _driverType;
 		D3D_FEATURE_LEVEL _featureLevel;
-		ID3D11Device* _device;
-		IDXGISwapChain* _swapChain;
-		ID3D11DeviceContext* _context;
 		for (UINT _driverTypeIndex = 0; _driverTypeIndex < _numDriverTypes; ++_driverTypeIndex)
 		{
 			_driverType = _driverTypes[_driverTypeIndex];
@@ -69,83 +65,67 @@ namespace Engine2D
 				_numFeatureLevels,		// 機能レベル数
 				D3D11_SDK_VERSION,		// 
 				&_sd,					// スワップチェインの設定
-				&_swapChain,			// IDXGIDwapChainインタフェース	
-				&_device,				// ID3D11Deviceインタフェース
+				swapChain.ReleaseAndGetAddressOf(),			// IDXGIDwapChainインタフェース	
+				device.ReleaseAndGetAddressOf(),			// ID3D11Deviceインタフェース
 				&_featureLevel,		// サポートされている機能レベル
-				&_context);		// デバイスコンテキスト
-			if (SUCCEEDED(_hr)) 
-			{
-				swapChain.reset(_swapChain);
-				device.reset(_device);
-				context.reset(_context);
-				break;
-			}
+				context.ReleaseAndGetAddressOf());		// デバイスコンテキスト
+			if (SUCCEEDED(_hr)) { break; }
 		}
-		if (FAILED(_hr))	return _hr;
+		if (FAILED(_hr)) { return _hr; }
 
 		//--- ラスタライズ
 		D3D11_RASTERIZER_DESC _rasterDesc{};
-		ID3D11RasterizerState* _rasterizer[(int)CullingMode::MAX]{};
 	
 		_rasterDesc.FillMode = D3D11_FILL_SOLID;
 		_rasterDesc.CullMode = D3D11_CULL_NONE;
-		_hr = device->CreateRasterizerState(&_rasterDesc, &_rasterizer[(int)CullingMode::NONE]);
+		_hr = device->CreateRasterizerState(&_rasterDesc, &rasterizer[(int)CullingMode::NONE]);
 		if (FAILED(_hr)) { return _hr; }
 		_rasterDesc.CullMode = D3D11_CULL_FRONT;
-		_hr = device->CreateRasterizerState(&_rasterDesc, &_rasterizer[(int)CullingMode::FRONT]);
+		_hr = device->CreateRasterizerState(&_rasterDesc, &rasterizer[(int)CullingMode::FRONT]);
 		if (FAILED(_hr)) { return _hr; }
 		_rasterDesc.CullMode = D3D11_CULL_BACK;
-		_hr = device->CreateRasterizerState(&_rasterDesc, &_rasterizer[(int)CullingMode::BACK]);
+		_hr = device->CreateRasterizerState(&_rasterDesc, &rasterizer[(int)CullingMode::BACK]);
 		if (FAILED(_hr)) { return _hr; }
-		for (int i = 0; i < (int)CullingMode::MAX; ++i)
-		{
-			rasterizer[i].reset(_rasterizer[i]);
-		}
+
 		SetCulling(CullingMode::NONE);
 
 		return S_OK;
 	}
-	D3D11::D3D11()
+	DX11::DX11()
+		: device(nullptr)
+		, context(nullptr)
+		, swapChain(nullptr)
+		, renderTargetView(nullptr)
+		, lastError(S_OK)
+	{
+		for (int i = 0; i < (int)CullingMode::MAX; i++)
+			rasterizer[i] = nullptr;
+	}
+	DX11::~DX11()
 	{
 	}
-	D3D11::~D3D11()
-	{
-		Release();
-	}
-	void D3D11::Init(HWND hwnd, UINT width, UINT height, bool fullscreen)
+	void DX11::Init(HWND hwnd, UINT width, UINT height, bool fullscreen)
 	{
 		lastError = E_FAIL;
 		lastError = Create(hwnd, width, height, fullscreen);
 	}
-	void D3D11::SetCulling(Engine2D::CullingMode mode)
+	void DX11::SetCulling(Engine2D::CullingMode mode)
 	{
-		if (auto p = rasterizer[(int)mode])
-		{
-			context->RSSetState(p.get());
-		}
+		context->RSSetState(rasterizer[(int)mode].Get());
 	}
-	void D3D11::Release()
-	{
-		safe_release(renderTargetView);
-		for (int i = (int)CullingMode::MAX - 1; i > 0; --i)
-			safe_release(rasterizer[i]);
-		safe_release(swapChain);
-		safe_release(context);
-		safe_release(device);
-	}
-	inline std::weak_ptr<ID3D11Device> D3D11::GetDevice()
+	inline ComPtr<ID3D11Device> DX11::GetDevice()
 	{
 		return device;
 	}
-	inline std::weak_ptr<ID3D11DeviceContext> D3D11::GetContext()
+	inline ComPtr<ID3D11DeviceContext> DX11::GetContext()
 	{
 		return context;
 	}
-	inline std::weak_ptr<IDXGISwapChain> D3D11::GetSwapChain()
+	inline ComPtr<IDXGISwapChain> DX11::GetSwapChain()
 	{
 		return swapChain;
 	}
-	inline std::weak_ptr<ID3D11RenderTargetView> D3D11::GetRenderTargetView()
+	inline ComPtr<ID3D11RenderTargetView> DX11::GetRenderTargetView()
 	{
 		return renderTargetView;
 	}

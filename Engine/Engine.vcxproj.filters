@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ignore">
+      <UniqueIdentifier>{1570dc3b-46bc-468c-a9dd-babd1f557d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Texture">
+      <UniqueIdentifier>{d520b818-ba14-4d40-a008-fcaf012fc86b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.hpp">
@@ -27,16 +33,40 @@
     <ClInclude Include="Graphic\DX11.hpp">
       <Filter>Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="safe_release.h">
-      <Filter>Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\Texture.hpp">
-      <Filter>Graphic</Filter>
-    </ClInclude>
     <ClInclude Include="singleton.hpp">
       <Filter>Library</Filter>
     </ClInclude>
-    <ClInclude Include="delegate.hpp">
+    <ClInclude Include="Graphic\Graphics.hpp">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\BlendState.hpp">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\SamplerState.hpp">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DepthStencilState.hpp">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Texture\Texture.hpp">
+      <Filter>Graphic\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Texture\TextureFactory.hpp">
+      <Filter>Graphic\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Texture\RenderTarget.hpp">
+      <Filter>Graphic\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Texture\DepthStencil.hpp">
+      <Filter>Graphic\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Color.hpp">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="utilityFunc.h">
       <Filter>Library</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,8 +80,48 @@
     <ClCompile Include="Graphic\DX11.cpp">
       <Filter>Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\Texture.cpp">
+    <ClCompile Include="Graphic\Graphics.cpp">
       <Filter>Graphic</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\BlendState.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\SamplerState.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\DepthStencilState.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Texture\Texture.cpp">
+      <Filter>Graphic\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Texture\TextureFactory.cpp">
+      <Filter>Graphic\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Texture\RenderTarget.cpp">
+      <Filter>Graphic\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Texture\DepthStencil.cpp">
+      <Filter>Graphic\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Color.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphic\Texture\RenderTargetView.inl">
+      <Filter>Graphic\Texture</Filter>
+    </None>
+    <None Include="Graphic\Texture\DepthStencil.inl">
+      <Filter>Graphic\Texture</Filter>
+    </None>
+    <None Include="Graphic\Texture\Texture.inl">
+      <Filter>Graphic\Texture</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ignore\TODO.txt">
+      <Filter>ignore</Filter>
+    </Text>
   </ItemGroup>
 </Project>

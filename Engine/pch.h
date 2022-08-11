@@ -9,8 +9,10 @@
 
 // プリコンパイルするヘッダーをここに追加します
 #include "framework.h"
-#include "safe_release.h"
-
+#include "singleton.hpp"
+#include "Graphic\DX11.hpp"
+#include "Graphic\Texture\Texture.hpp"
+#include "utilityFunc.h"
 
 
 
